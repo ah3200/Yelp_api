@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="./revise.css">
+                <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+				  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+                <script>
+                $(document).on("pagecreate","#pagethree",function(){
+					  $(document).on( "click", "#Search", data=restinput, function () { 
+					  	$("table#mytable tbody > tr").remove();
+						input = $("#restinput").val();
+					    $.getJSON("http://websys3.stern.nyu.edu/websysS15GB/websysS15GB6/getyelpdata.php",{ searchinput:input },function(data) {
+						  	$.each(data,function(index,value) {
+							 	$("table#mytable tbody")
+											.append("<tr>"+"<td>"+value.RESTAURANT_NAME+"</td>"
+														  +"<td>"+value.ADDRESS+"</td>"
+														   +"<td>"+value.DISH_NAME+"</td>"
+														   +"<td>"+value.NUM_REVIEW+"</td>"
+														   +"<td>"+value.NUM_POS+"</td>"
+														   +"<td>"+value.NUM_NEG+"</td>"+"</tr>"); 
+						    });
+						 });    
+					  });
+					});    
+                </script>
+    </head>
+    
+    <body>
+        <div data-role="page" id="pageone">
+            <div data-role="header">
+                <div>
+                    <h1 style="center">App Name</h1>
+                </div>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#pagetwo" class="ui-btn ui-icon-arrow-l ui-btn-icon-home" data-transition="flow" data-direction="reverse">Home</a></li>
+                        <li><a href="#pagethree" data-transition="flow" data-direction="reverse">Search</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-rol="content">
+                <img src="welcome.jpg"/>
+            </div>
+        </div>
+        
+        
+        
+        <div data-role="page" id="pagetwo">
+            <div data-role="header">
+                <div>
+                    <h1>PageTwo</h1>
+                </div>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#pageone">Back</a></li>
+                        <li><a href="#pagethree">Search</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        
+        
+        <div data-role="page" id="pagethree">
+            <div data-role="header">
+                <h1>Find a Menu</h1>
+            </div>
+            <input type="text" name="restaurant" id="restinput" placeholder="Restaurant..." />
+            <input type="button" id="Search" value="Search"></input>
+            <div data-role="main" class="ui-content">
+                <table data-role="table" id="mytable" class="ui-responsive table-stroke">
+                    <thead>
+                        <tr>
+                            <th data-priority="2"><button>Restaurant Name</button></th>
+                            <th data-priority="6"><button>Address</button></th>
+                            <th data-priority="1"><button>Dish</button></th>
+                            <th data-priority="3"><button>Reviews</button></th>
+                            <th data-priority="4"><button>Positive</button></th>
+                            <th data-priority="5"><button>Negative</button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>McDonald</td>
+                            <td>McDonald</td>
+                            <td>Washington Square</td>
+                            <td>222</td>
+                            <td>110</td>
+                            <td>112</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </body>
+</html>
